@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import Moveable from "vue3-moveable";
 import { ref } from "vue";
 export default {
@@ -9,18 +9,18 @@ export default {
     const mouseEnter = ref(false);
     const draggable = true;
     const resizable = true;
-    const onDelete = (index) => {
+    const onDelete = (index: number) => {
       picturesRef.value.splice(index, 1)
     }
-    const onDrag = (e) => {
+    const onDrag = (e: any) => {
       e.target.style.transform = e.transform;
     };
-    const onResize = (e) => {
+    const onResize = (e: any) => {
       e.target.style.width = `${e.width}px`;
       e.target.style.height = `${e.height}px`;
       e.target.style.transform = e.drag.transform;
     };
-    const pasteFunction = (pasteEvent, callback) => {
+    const pasteFunction = (pasteEvent: any, callback: any) => {
       if (pasteEvent.clipboardData == false) {
         if (typeof callback == "function") {
           console.log("Undefined ");
@@ -39,7 +39,11 @@ export default {
         var blob = items[i].getAsFile();
         const reader = new FileReader()
         reader.readAsDataURL(blob)
-        reader.onload = (e) => picturesRef.value.push(e.target.result);
+        reader.onload = ((e) => {
+          if (e.target && e.target.result) {
+            picturesRef.value.push(e.target.result.toString())
+          }
+        })
       }
     };
     return {
@@ -60,7 +64,7 @@ export default {
   <div
     class="flex flex-col px-2 py-2"
     @click.prevent="!mouseEnter ? (currentIndex = undefined) : ''"
-    @paste="pasteFunction"
+    @paste.prevent="pasteFunction"
   >
     <div v-if="picturesRef.length === 0" class="text-blue-500 text-4xl">Please command/ctrl V to paste img</div>
     <div v-for="(picture, index) in picturesRef" :key="index" class="relative">
