@@ -49,9 +49,9 @@ const pasteFunction = (pasteEvent: any, callback: any) => {
     <div v-if="picturesRef.length === 0" class="m-4 text-blue-500 text-4xl">Paste image</div>
     <div v-for="(picture, index) in picturesRef" :key="index" class="relative">
       <div class="relative flex items-center justify-center border border-slate-300 z-0">
-        <div class="absolute top-0 left-2">
-          <button class="mr-2" @click="onDelete(index)">Step</button>
-          <input class="w-20" @change="resetSeq" v-model="picture.seq">
+        <div class="absolute top-0 right-0 bg-white rounded-md">
+          <button class="ml-2 mr-2" @click="onDelete(index)">Step:</button>
+          <input class="w-8 rounded-md" @change="resetSeq" v-model="picture.seq">
         </div>
         <img :src="picture.img" />
       </div>
