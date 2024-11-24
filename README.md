@@ -4,7 +4,7 @@ Evidence capture
 
 ## Page in dev
 
-https://evidence-capture.onrender.com/
+https://evcapture.onrender.com/
 
 ## Project Setup
 
